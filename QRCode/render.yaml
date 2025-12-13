@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: qrcode-backend
+    env: node
+    # Update this based on your actual repository structure
+    # If server is at root: rootDir: server
+    # If server is in QRCode folder: rootDir: QRCode/server
+    rootDir: QRCode/server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        fromService:
+          type: web
+          name: qrcode-backend
+          property: port
+      - key: PG_USER
+        sync: false
+      - key: PG_HOST
+        sync: false
+      - key: PG_DATABASE
+        sync: false
+      - key: PG_PASSWORD
+        sync: false
+      - key: PG_PORT
+        sync: false

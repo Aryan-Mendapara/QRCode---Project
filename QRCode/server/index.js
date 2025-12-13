@@ -12,16 +12,9 @@ const server = createServer(app);
 const port = process.env.PORT;
 
 app.use(cors({
-    origin: ["http://localhost:5173", "http://localhost:3000"],
+    origin: ["http://localhost:5173", "https://qr-code-project-xi.vercel.app"],
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true
-}));
-
-// Middleware
-app.use(cors({
-    origin: ["http://localhost:5173"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
 }));
 
 app.use(express.json());
