@@ -4,20 +4,32 @@ const { Pool } = pkg;
 let pool;
 
 export const initializePool = () => {
-    console.log("📌 Initializing Pool with: ", {
-        user: process.env.PG_USER,
-        host: process.env.PG_HOST,
-        database: process.env.PG_DATABASE,
-        port: process.env.PG_PORT,
-    });
+    // Support both DATABASE_URL (Render/Heroku) and individual env vars (local dev)
+    if (process.env.DATABASE_URL || process.env.EXTERNAL_DATABASE_URL) {
+        // Use connection string (Render/Heroku style)
+        const connectionString = process.env.DATABASE_URL || process.env.EXTERNAL_DATABASE_URL;
+        pool = new Pool({
+            connectionString: connectionString,
+            ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+        });
+        console.log("📌 Initializing Pool with DATABASE_URL connection string");
+    } else {
+        // Use individual environment variables (local development)
+        console.log("📌 Initializing Pool with individual env vars: ", {
+            user: process.env.PG_USER,
+            host: process.env.PG_HOST,
+            database: process.env.PG_DATABASE,
+            port: process.env.PG_PORT,
+        });
 
-    pool = new Pool({ 
-        user: process.env.PG_USER,
-        host: process.env.PG_HOST,
-        database: process.env.PG_DATABASE,
-        password: String(process.env.PG_PASSWORD),
-        port: Number(process.env.PG_PORT),
-    });
+        pool = new Pool({ 
+            user: process.env.PG_USER,
+            host: process.env.PG_HOST || 'localhost',
+            database: process.env.PG_DATABASE,
+            password: String(process.env.PG_PASSWORD),
+            port: Number(process.env.PG_PORT) || 5432,
+        });
+    }
 }
 
 //Get the pool instance
