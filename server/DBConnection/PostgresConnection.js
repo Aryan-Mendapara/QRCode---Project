@@ -3,7 +3,7 @@
 
 // export default async function postgresConnect() {
 //   let pool;
-  
+
 //   // Support both DATABASE_URL (Render/Heroku) and individual env vars (local dev)
 //   if (process.env.DATABASE_URL || process.env.EXTERNAL_DATABASE_URL) {
 //     // Use connection string (Render/Heroku style)
@@ -23,7 +23,7 @@
 //       console.error("3. Add DATABASE_URL manually with your connection string");
 //       throw new Error("DATABASE_URL environment variable is required in production");
 //     }
-    
+
 //     // Use individual environment variables (local development only)
 //     if (!process.env.PG_USER || !process.env.PG_DATABASE) {
 //       console.error("❌ ERROR: Database configuration missing!");
@@ -31,7 +31,7 @@
 //       console.error("For production, set: DATABASE_URL");
 //       throw new Error("Database configuration is missing");
 //     }
-    
+
 //     pool = new Pool({
 //       user: process.env.PG_USER,
 //       host: process.env.PG_HOST || 'localhost',
@@ -62,12 +62,21 @@ export default async function postgresConnect() {
 
   if (process.env.DATABASE_URL) {
     // Use DATABASE_URL in both local and Render
-    const connectionString = process.env.DATABASE_URL;
+    const connectionString =
+      (isRender && process.env.DATABASE_URL) ||
+      process.env.EXTERNAL_DATABASE_URL ||
+      process.env.DATABASE_URL;
+
+    if (!connectionString) {
+      throw new Error("❌ DATABASE_URL/EXTERNAL_DATABASE_URL is not set");
+    }
+
     const forceSsl =
       (process.env.DATABASE_SSL || '').toLowerCase() === 'true' ||
       env === 'production' ||
       isRender ||
       connectionString.includes('render.com');
+
 
     pool = new Pool({
       connectionString,
