@@ -12,7 +12,10 @@ const server = createServer(app);
 const port = process.env.PORT;
 
 app.use(cors({
-    origin: ["http://localhost:5173"],
+    origin: [
+        "http://localhost:5173",
+        "https://qr-code-project-wine.vercel.app"
+    ],
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true
 }));
@@ -26,7 +29,7 @@ app.use((req, res, next) => {
 });
 
 // Attach routes under /qrcode to match client calls
-app.use('/project',router);
+app.use('/project', router);
 
 // Initialize DB & start server
 (async () => {
