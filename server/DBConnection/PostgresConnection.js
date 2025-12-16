@@ -62,10 +62,9 @@ export default async function postgresConnect() {
 
   if (process.env.DATABASE_URL) {
     // Use DATABASE_URL in both local and Render
-    const connectionString =
-      (isRender && process.env.DATABASE_URL) ||
-      process.env.EXTERNAL_DATABASE_URL ||
-      process.env.DATABASE_URL;
+    const connectionString = process.env.RENDER
+      ? process.env.DATABASE_URL
+      : process.env.EXTERNAL_DATABASE_URL || process.env.DATABASE_URL;
 
     if (!connectionString) {
       throw new Error("❌ DATABASE_URL/EXTERNAL_DATABASE_URL is not set");
@@ -93,7 +92,7 @@ export default async function postgresConnect() {
     pool = new Pool({
       connectionString,
       // Many hosted Postgres providers (Render, Supabase, etc.) require SSL even in dev
-      ssl: forceSsl ? { rejectUnauthorized: false } : false
+      ssl: connectionString.includes('render.com') ? { rejectUnauthorized: false } : false
     });
 
     console.log("📌 Using DATABASE_URL connection string");
