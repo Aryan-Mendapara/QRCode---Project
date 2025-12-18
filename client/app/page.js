@@ -121,14 +121,13 @@ export default function HomePage() {
       {/* Update Modal */}
       {updateItem && (
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
-          <div className="bg-white text-black dark:bg-white dark:text-white p-6 rounded-xl shadow-xl w-96">
-
+          <div className="bg-white text-black p-6 rounded-xl shadow-xl w-96">
             <h2 className="text-xl font-bold mb-4 text-center">
               Update QR Code
             </h2>
 
             <input
-              className="w-full p-2 mb-3 rounded bg-white text-black border dark:bg-gray-900 dark:text-white"
+              className="w-full p-2 mb-3 rounded bg-white text-black border"
               value={updateItem.key}
               onChange={(e) =>
                 setUpdateItem({ ...updateItem, key: e.target.value })
@@ -136,9 +135,7 @@ export default function HomePage() {
             />
 
             <input
-              className="w-full p-2 mb-4 rounded
-        bg-white text-black border
-        dark:bg-gray-900 dark:text-white"
+              className="w-full p-2 mb-4 rounded bg-white text-black border"
               value={updateItem.url}
               onChange={(e) =>
                 setUpdateItem({ ...updateItem, url: e.target.value })

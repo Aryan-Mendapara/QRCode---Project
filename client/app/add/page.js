@@ -27,17 +27,17 @@ export default function AddQRPage() {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center dark:bg-black transition-colors duration-300">
+    <div className="h-screen flex justify-center items-center bg-black transition-colors duration-300">
       <form
         onSubmit={handleSubmit}
-        className=" dark:bg-white text-white dark:text-black  p-8 rounded-lg shadow max-w-md w-full transition-colors duration-300"
+        className="bg-white text-black p-8 rounded-lg shadow max-w-md w-full transition-colors duration-300"
       >
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">
+        <h1 className="text-3xl font-bold mb-6 text-center text-black">
           Add QR Code
         </h1>
 
         <input
-          className="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 mb-4 rounded bg-white dark:bg-gray-700 text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-gray-300 px-3 py-2 mb-4 rounded bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Key"
           value={key}
           onChange={(e) => setKey(e.target.value)}
@@ -45,7 +45,7 @@ export default function AddQRPage() {
         />
 
         <input
-          className="w-full border border-gray-300 dark:border-gray-600 px-3 py-2 mb-4 rounded bg-white dark:bg-gray-700 text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-gray-300 px-3 py-2 mb-4 rounded bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="URL"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
