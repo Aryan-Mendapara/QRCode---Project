@@ -1,4 +1,4 @@
-import { deleteQRCodeById, getAllQRCodes, getQRCodeByKey, insertQRCode, updateQRCodeById } from "../models/qecode.js";
+import { deleteQRCodeById, getAllQRCodes, getQRCodeByKey, insertQRCode, updateQRCodeById } from "../models/qrcode.js";
 
 export const addQRCode = async (req, res) => {
     try {
@@ -10,7 +10,7 @@ export const addQRCode = async (req, res) => {
         for (const field of requried) {
             if (!req.body[field]) {
                 return res.status(400).json({ error: `Missing field: ${field}` });
-            } 
+            }
         }
 
         const savedQR = await insertQRCode(req.body);
@@ -21,6 +21,13 @@ export const addQRCode = async (req, res) => {
         });
     } catch (error) {
         console.error("❌ Error in addQRCode controller:", error);
+
+        if (error.code === "23505") {
+            return res.status(409).json({
+                error: "QR key already exists"
+            });
+        }
+
         res.status(500).json({ error: "Internal server error" });
     }
 }

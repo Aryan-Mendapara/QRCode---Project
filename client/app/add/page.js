@@ -3,14 +3,18 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { addQRCode } from "../apiServer/qrcode";
- 
+
 export default function AddQRPage() {
   const [key, setKey] = useState("");
   const [url, setUrl] = useState("");
+  const [loading, setLoading] = useState(false); 
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
+
+    setLoading(true);
 
     try {
       await addQRCode({ key, url });
@@ -29,7 +33,7 @@ export default function AddQRPage() {
       >
         <h1 className="text-3xl font-bold mb-6 text-center">Add QR Code</h1>
 
-        <input 
+        <input
           className="w-full border px-3 py-2 mb-4 rounded"
           placeholder="Key"
           value={key}

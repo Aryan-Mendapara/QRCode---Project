@@ -5,7 +5,7 @@ import cors from 'cors';
 import { createServer } from 'http';
 import PostgresConnection from './DBConnection/PostgresConnection.js';
 import router from './Routes/main.js';
-import { initializePool, initializeTable } from './models/qecode.js';
+import { initializePool, initializeTable } from './models/qrcode.js';
 
 const app = express();
 const server = createServer(app);
@@ -13,11 +13,12 @@ const port = process.env.PORT;
 
 app.use(cors({
     origin: [
-        "http://localhost:5173",
+        "http://localhost:3000",
         "https://qrcode-project-omega.vercel.app"
     ],
     methods: ["GET", "POST", "DELETE", "PUT"],
-    credentials: true
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(express.json());

@@ -12,7 +12,7 @@ export default function HomePage() {
 
   // Fetch from backend
   useEffect(() => {
-    loadData(); 
+    loadData();
   }, []);
 
   const loadData = async () => {
@@ -47,12 +47,20 @@ export default function HomePage() {
         QR Code Manager
       </h1>
 
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center mb-6 gap-4">
         <Link
           href="/add"
           className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow"
         >
           Add QR Code
+        </Link>
+
+        <Link
+          href="/scan-scanner"
+          target="_blank"
+          className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition shadow"
+        >
+          Scan QR Code
         </Link>
       </div>
 
@@ -68,7 +76,10 @@ export default function HomePage() {
 
         <tbody>
           {qrList.map((item, index) => (
-            <tr key={item.id} className="text-center">
+            <tr
+              key={item.id}
+              className="text-center border"
+            >
               <td className="border px-4 py-2">{index + 1}</td>
               <td className="border px-4 py-2">{item.key}</td>
               <td className="border px-4 py-2 break-all">{item.url}</td>
@@ -111,7 +122,7 @@ export default function HomePage() {
               size={200}
             />
 
-            <button 
+            <button
               onClick={() => setShowQRIndex(null)}
               className="mt-4 px-6 py-2 bg-blue-600 text-white rounded cursor-pointer"
             >
