@@ -59,7 +59,7 @@ export default function HomePage() {
 
       <table className="w-full border rounded-lg">
         <thead>
-          <tr className="bg-gray-200 text-gray-800 dark:text-white">
+          <tr className="bg-gray-200 text-black">
             <th className="border px-4 py-2">#</th>
             <th className="border px-4 py-2">Key</th>
             <th className="border px-4 py-2">URL</th>
