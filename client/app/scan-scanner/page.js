@@ -9,7 +9,6 @@ export default function ScanUploadPage() {
     const [qrData, setQrData] = useState(null);
     const [linkDetected, setLinkDetected] = useState(false);
     const [finalUrl, setFinalUrl] = useState("");
-    const [uploadBtnText, setUploadBtnText] = useState("Upload a File");
 
     const canvasRef = useRef();
     const fileInputRef = useRef();
@@ -142,7 +141,7 @@ export default function ScanUploadPage() {
                     onClick={() => fileInputRef.current.click()}
                     className="py-2 px-6 bg-blue-600 text-white rounded hover:bg-blue-700 transition cursor-pointer"
                 >
-                    {uploadBtnText}
+                    Upload a File
                 </button>
 
                 <button
