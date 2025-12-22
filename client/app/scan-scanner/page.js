@@ -141,7 +141,7 @@ export default function ScanUploadPage() {
                     onClick={() => fileInputRef.current.click()}
                     className="py-2 px-6 bg-blue-600 text-white rounded hover:bg-blue-700 transition cursor-pointer"
                 >
-                    Upload a File
+                    Upload File
                 </button>
 
                 <button
