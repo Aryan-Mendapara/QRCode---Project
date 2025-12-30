@@ -94,25 +94,18 @@ export const initializeTable = async () => {
 }
 
 // insert QRCode into DB
-export const insertQRCode = async (data) => {
-    try {
-        const query = `
-        INSERT INTO qrcodes (key, url)
-        VALUES ($1, $2)
-        RETURNING *;
-        `;
-        const values = [
-            data.key,
-            data.url
-        ];
+export const insertQRCode = async ({ key, url }) => {
+  const query = `
+    INSERT INTO qrcodes (key, url)
+    VALUES ($1, $2)
+    ON CONFLICT (key)
+    DO UPDATE SET url = EXCLUDED.url
+    RETURNING *;
+  `;
 
-        const res = await getPool().query(query, values);
-        return res.rows[0];
-    } catch (error) {
-        console.error("❌ Error inserting QR Code:", error);
-        throw error;
-    }
-}
+  const result = await pool.query(query, [key, url]);
+  return result.rows[0];
+};
 
 // get all QRCodes from DB
 export const getAllQRCodes = async () => {
