@@ -93,19 +93,19 @@ export default function HomePage() {
                   <div className="flex justify-center gap-2">
                     <button
                       onClick={() => setShowQRIndex(index)}
-                      className="btn-sm bg-green-500"
+                      className="btn-sm px-2 py-1 rounded bg-green-500 cursor-pointer"
                     >
                       Show
                     </button>
                     <button
                       onClick={() => setUpdateItem(item)}
-                      className="btn-sm bg-yellow-500"
+                      className="btn-sm px-2 py-1 rounded bg-yellow-500 cursor-pointer"
                     >
                       Update
                     </button>
                     <button
                       onClick={() => handleDelete(item.id)}
-                      className="btn-sm bg-red-500"
+                      className="btn-sm px-2 py-1 rounded bg-red-500 cursor-pointer"
                     >
                       Delete
                     </button>
@@ -159,7 +159,7 @@ export default function HomePage() {
             />
             <button
               onClick={() => setShowQRIndex(null)}
-              className="btn bg-blue-600 mt-4"
+              className="btn px-2 py-1 rounded bg-blue-600 mt-4 cursor-pointer"
             >
               Close
             </button>
@@ -169,31 +169,37 @@ export default function HomePage() {
 
       {/* ================= UPDATE MODAL ================= */}
       {updateItem && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded w-96">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white text-black p-6 rounded-xl shadow-lg w-full max-w-md">
             <h2 className="text-xl font-bold mb-4 text-center">Update QR Code</h2>
 
-            <input
-              className="input"
-              value={updateItem.key}
-              onChange={(e) => setUpdateItem({ ...updateItem, key: e.target.value })}
-            />
-            <input
-              className="input mt-3"
-              value={updateItem.url}
-              onChange={(e) => setUpdateItem({ ...updateItem, url: e.target.value })}
-            />
+            <div className="space-y-3">
+              <input
+                type="text"
+                className="w-full border border-black px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Key"
+                value={updateItem.key}
+                onChange={(e) => setUpdateItem({ ...updateItem, key: e.target.value })}
+              />
+              <input
+                type="text"
+                className="w-full border border-black px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="URL"
+                value={updateItem.url}
+                onChange={(e) => setUpdateItem({ ...updateItem, url: e.target.value })}
+              />
+            </div>
 
-            <div className="flex justify-end gap-3 mt-4">
+            <div className="flex justify-end gap-3 mt-5">
               <button
                 onClick={() => setUpdateItem(null)}
-                className="btn-sm bg-gray-500"
+                className="px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600 transition cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={handleUpdate}
-                className="btn-sm bg-green-600"
+                className="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 transition cursor-pointer"
               >
                 Save
               </button>

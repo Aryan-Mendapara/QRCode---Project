@@ -55,7 +55,7 @@ export default function AddQRPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded transition disabled:opacity-50"
+          className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded transition disabled:opacity-50 cursor-pointer"
         >
           {loading ? "Adding..." : "Submit"}
         </button>
