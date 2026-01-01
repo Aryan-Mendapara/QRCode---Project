@@ -12,19 +12,20 @@ export default function ScanUploadPage() {
     const [linkDetected, setLinkDetected] = useState(false);
     const [finalUrl, setFinalUrl] = useState("");
     const [cameraOn, setCameraOn] = useState(false);
+    const [heading, setHeading] = useState("Upload / Scan QR Code");
 
     const canvasRef = useRef();
     const fileInputRef = useRef();
     const qrRef = useRef(null);
 
     const searchParams = typeof window !== "undefined" ? useSearchParams() : null;
-    const mode = searchParams?.get("mode");
+    const mode = searchParams?.get("mode");    
 
-    const getHeading = () => {
-        if (mode === "add") return "Upload / Scan QR Code - Add Inventory";
-        if (mode === "remove") return "Upload / Scan QR Code - Remove Inventory";
-        return "Upload / Scan QR Code";
-    };
+    useEffect(() => {
+        if (!searchParams) return;
+        if (mode === "add") setHeading("Upload / Scan QR Code - Add Inventory");
+        else if (mode === "remove") setHeading("Upload / Scan QR Code - Remove Inventory");
+    }, [searchParams, mode]);
 
     /* ================= IMAGE UPLOAD ================= */
 
@@ -151,11 +152,11 @@ export default function ScanUploadPage() {
             const ctx = canvas.getContext("2d");
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
-    };    
+    };
 
     return (
         <div className="min-h-screen flex flex-col items-center p-6">
-            <h1 className="text-3xl font-bold mb-6">{getHeading()}</h1>
+            <h1 className="text-3xl font-bold mb-6">{heading}</h1>
 
             <div className="flex gap-2 mb-4">
                 {/* 🔹 Upload Image button only if camera is OFF */}
