@@ -30,7 +30,7 @@ export default function ScanUploadPage() {
     /* ================= IMAGE UPLOAD ================= */
 
     const handleFileChange = (e) => {
-        if (cameraOn) return; // 🔹 camera already active, ignore upload
+        if (cameraOn) return; // camera already active, ignore upload
 
         const file = e.target.files[0];
         if (!file) return;
@@ -82,7 +82,7 @@ export default function ScanUploadPage() {
     useEffect(() => {
         if (!cameraOn) return;
 
-        // 🔹 If image is uploaded, disable camera
+        // If image is uploaded, disable camera
         if (imgSrc) {
             setCameraOn(false);
             return;
@@ -96,19 +96,19 @@ export default function ScanUploadPage() {
                 { facingMode: "environment" },
                 { fps: 10, qrbox: 400 },
                 async (decodedText) => {
-                    // 🔹 Stop and clear scanner
+                    // Stop and clear scanner
                     await html5QrCode.stop();
                     await html5QrCode.clear();
                     setCameraOn(false);
 
-                    // 🔹 Set state (optional)
+                    // Set state (optional)
                     setQrData(decodedText);
                     setLinkDetected(decodedText.startsWith("http"));
                     setFinalUrl(getFinalUrl(decodedText));
 
-                    // 🔹 Automatic redirect if link
+                    // Automatic redirect if link
                     if (decodedText.startsWith("http")) {
-                        window.location.href = getFinalUrl(decodedText); // 🔹 auto open
+                        window.location.href = getFinalUrl(decodedText); // auto open
                     }
                 }
             )
@@ -157,7 +157,7 @@ export default function ScanUploadPage() {
             <h1 className="text-3xl font-bold mb-6">{heading}</h1>
 
             <div className="flex gap-2 mb-4">
-                {/* 🔹 Upload Image button only if camera is OFF */}
+                {/* Upload Image button only if camera is OFF */}
                 {!cameraOn && (
                     <button
                         onClick={() => fileInputRef.current.click()}
@@ -167,7 +167,7 @@ export default function ScanUploadPage() {
                     </button>
                 )}
 
-                {/* 🔹 Camera button only if no image uploaded */}
+                {/* Camera button only if no image uploaded */}
                 {!imgSrc && (
                     <button
                         onClick={() => setCameraOn(true)}
@@ -198,8 +198,8 @@ export default function ScanUploadPage() {
                 ref={canvasRef}
                 className="shadow-md"
                 style={{
-                    width: imgSrc ? "500px" : "0px",  // 🔹 Upload image width
-                    height: imgSrc ? "400px" : "0px", // 🔹 Upload image height
+                    width: imgSrc ? "500px" : "0px",  // Upload image width
+                    height: imgSrc ? "400px" : "0px", // Upload image height
                     maxWidth: "100%",
                     objectFit: "cover",
                 }}
@@ -210,8 +210,8 @@ export default function ScanUploadPage() {
                     id="qr-reader"
                     className="rounded-lg shadow-md mt-4"
                     style={{
-                        width: "350px",   // 🔹 smaller size for camera
-                        height: "250px",  // 🔹 smaller height
+                        width: "350px",   // smaller size for camera
+                        height: "250px",  // smaller height
                         overflow: "hidden",
                     }}
                 />
